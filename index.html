@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>quee.js home</title>
+    <link href="/docs/styles/jsdoc-default.css" rel="stylesheet" type="text/css"/>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script> 
+  </head>
+  <style>
+    body {
+      text-align: center;
+    }
+    select {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 16px;
+    }
+  </style>
+  <body onload="doversion()">
+    <h1>quee.js</h1>
+    <br>
+    <h4><a href="/docs/index.html">Documentation and About</a></h4>
+    <br>
+    <h2>Code</h2>
+    <br>
+    <label>Version: </label>
+    <select id="versions">
+      <option value="0.7">0.7</option>
+      <option value="0.6">0.6</option>
+      <option value="0.5">0.5</option>
+      <option value="0.4">0.4</option>
+      <option value="0.3">0.3</option>
+      <option value="0.2">0.2</option>
+      <option value="0.1">0.1</option>
+      <option value="dev">DEV</option>
+    </select>
+    <p id="link"></p>
+    <p id="css"><strong>Css: </strong>&lt;link href="https://queejs.jackneils.repl.co/src/quee.css" rel="stylesheet" type="text/css"/&gt;</p>
+    <br>
+    <h2>Demos</h2>
+    <p><a href="/demos/showcase.html">QueeShowcase</a> (Backspace to exit)</p>
+    <p><a href="/demos/clicktest.html">Clicktest</a> (Backspace to exit)</p>
+  </body>
+    <script>
+      var sizes = {}
+      dourl = function(url){
+        if (url in sizes) {
+          document.getElementById("link").innerHTML += "<strong>Source code: (Size: " + sizes[url] +"kb)</strong> &lt;script src=\"" + url + "\"&gt;&lt;/script&gt; "
+        }
+        else {
+          $.get(url, function( my_var ) {
+            var size = (Math.round((my_var.length/1024) * 10) / 10).toFixed(1)
+            sizes[url] = size
+            document.getElementById("link").innerHTML += "<strong>Source code: (Size: " + size +"kb)</strong> &lt;script src=\"" + url + "\"&gt;&lt;/script&gt; "
+          });
+        }
+      }
+      doversion = function(){
+        document.getElementById("link").innerHTML = "Getting value..."
+        var dots = document.getElementById("versions").value.split(".");
+        if (document.getElementById("versions").value == "dev") {
+          document.getElementById("link").innerHTML = "<p><strong>WARNING: This code is not minified or tested.</strong><br>"
+          dourl("https://queejs.jackneils.repl.co/quee_dev/quee.js")
+          document.getElementById("link").innerHTML += "</p>"
+          document.getElementById("css").innerHTML = "<strong>Css: </strong>&lt;link href=\"https://queejs.jackneils.repl.co/quee_dev/quee.css\" rel=\"stylesheet\" type=\"text/css\"/&gt;"
+        }
+        else {
+          document.getElementById("link").innerHTML = "<p>"
+          dourl("https://queejs.jackneils.repl.co/src/" + dots[0] + "/" + dots[1] + "/quee.min.js")
+          document.getElementById("link").innerHTML += "</p>"
+          document.getElementById("css").innerHTML = "<strong>Css: </strong>&lt;link href=\"https://queejs.jackneils.repl.co/src/quee.css\" rel=\"stylesheet\" type=\"text/css\"/&gt;"
+        }
+      };
+      document.getElementById("versions").onchange = doversion
+    </script>
+</html> 

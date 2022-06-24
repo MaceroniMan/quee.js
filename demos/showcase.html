@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>quee.js demo - QueeShowcase</title>
+    <link href="https://queejs.jackneils.repl.co/src/quee.css" rel="stylesheet" type="text/css"/>
+    <link rel="shortcut icon" href="/favicon.ico" />
+  </head>
+  <body>
+    <canvas id="quee_canvas"></canvas>
+    <script src="/quee_dev/quee.js"></script>
+  <script>
+    var world = new quee_ui.World()
+    quee_window.Canvas()
+    quee_image.LoadImages({"player" : "/demos/imgs/player.png","block" : "/demos/imgs/block.png"},mainloop)
+  
+    function mainloop() {
+      var player = new quee_ui.Sprite(world, "player")
+      var text = new quee_ui.Text(world, "WASD to move charecter, press spacebar to place block, left-click a block to remove it. Press any number to remove this text.", {"size":10})
+      world.draw()
+    
+      quee_input.Key.Bind("w", quee_ui.Move.Up(player))
+      quee_input.Key.Bind("s", quee_ui.Move.Down(player))
+      quee_input.Key.Bind("a", quee_ui.Move.Left(player))
+      quee_input.Key.Bind("d", quee_ui.Move.Right(player))
+    
+      quee_input.Key.Bind(" ", placesprite)
+    
+      quee_input.Key.Bind("~-", quee_ui.Delete(text))
+      quee_input.Key.Bind(quee_input.Key.Back, (function() {window.location.href="/"}))
+
+  quee_input.Key.Bind("h", quee_ui.Visibility(world, true))
+  quee_input.Key.Bind("f", quee_ui.Visibility(world, false))
+    
+      function placesprite() {
+        cords = locale.quee.mouse_position
+    
+        var temp_block = new quee_ui.Sprite(world, "block")
+        dims = temp_block.Dims()
+        var x = cords[0] - dims[0] / 2
+        var y = cords[1] - dims[1] / 2
+    
+        temp_block.OnClick(quee_ui.Delete(temp_block))
+    
+        temp_block.x = x
+        temp_block.y = y
+    
+        world.draw()
+      }
+    }
+    </script>
+  </body>
+</html>

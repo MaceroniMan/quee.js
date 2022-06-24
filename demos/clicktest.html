@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>quee.js demo - Clicktest</title>
+    <link href="/src/quee.css" rel="stylesheet" type="text/css"/>
+    <link rel="shortcut icon" href="/favicon.ico" />
+  </head>
+  <body>
+    <canvas id="quee_canvas"></canvas>
+    <script src="/src/0/6/quee.min.js"></script>
+    <script>
+      quee_image.LoadImages({"block": "/demos/imgs/block.png"}, mainloop)
+      var world = new quee_ui.World()
+
+      quee_input.Key.Bind(quee_input.Key.Back, (function() {window.location.href="/"}))
+      
+      function next(world, text) {
+        if (text.text == "Top Right") {
+          text.text = "Top Left"
+        }
+        else if (text.text == "Top Left") {
+          text.text = "Bottom Right"
+        }
+        else if (text.text == "Bottom Right") {
+          text.text = "Bottom Left"
+        }
+        else if (text.text == "Bottom Left") {
+          text.text = "Click test complete"
+        }
+        world.draw()
+      }
+      
+      function mainloop() {
+        var block = new quee_ui.Sprite(world, "block")
+        var text = new quee_ui.Text(world, "Top Right")
+        block.OnClick((function(){next(world,text)}))
+        world.draw()
+      }
+    </script>
+  </body>
+</html>

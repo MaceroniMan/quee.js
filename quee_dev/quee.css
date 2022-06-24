@@ -1,0 +1,13 @@
+#quee_canvas {
+  background: lightgrey;
+  border-color: black;
+}
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+canvas {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+}

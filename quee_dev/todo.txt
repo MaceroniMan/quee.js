@@ -1,0 +1,6 @@
+examples of code - Needed for 1.0
+debug (im talking NO errors!) - Needed for 1.0
+toggle worlds on/off - Needed for 1.0
+bind multiple keys - Needed for 1.0
+gamepad support
+editor + lessons
